@@ -3,5 +3,6 @@
 void main()
 {
   printf("algomanthm\n");
-  printf("hello\n");
+  printf("asdasdasdasdasd\n");
+  haha;
 }
