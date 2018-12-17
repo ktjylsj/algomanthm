@@ -25,16 +25,25 @@ try:
 except Exception as e:
     print('오류 발생', e)
 
-# print(driver.page_source)
+# lawItems = driver.find_elements_by_css_selector('.tableCol01').pop().find_elements_by_css_selector('tbody')
+# items = lawItems.pop().find_elements_by_css_selector('tr')
+lawItems = []
+for page in range(1, 3):
+    driver.execute_script("javascript:GoPage(%s)" % page)
+    laws = driver.find_elements_by_css_selector('.tableCol01').pop().find_elements_by_css_selector('tbody')
+    items = laws.pop().find_elements_by_css_selector('tr')
+    print("%s 페이지 이동" % page)
+    for tr in items:
+        # 의안 조건을 걸어 저장 유무 판단 하기!
+        lawItems.append(tr.find_element_by_css_selector('a').get_attribute('href'))
+    print(len(lawItems))
 
-#print(len(driver.find_elements_by_css_selector('.tableCol01')))
-#print(len(driver.find_elements_by_css_selector('.tableCol01').pop().find_elements_by_css_selector('tbody')))
-lawItems = driver.find_elements_by_css_selector('.tableCol01').pop().find_elements_by_css_selector('tbody')
-items = lawItems.pop().find_elements_by_css_selector('tr')
-for tr in items:
-    print(tr.text)
-
-
+length = len(lawItems)
+for li in range(length):
+    print(lawItems[li])
+driver.execute_script(lawItems[0])
+print(driver.find_element_by_css_selector('.boxType01').find_element_by_css_selector('.on').text)
+print(driver.find_element_by_css_selector('.tableCol01').find_element_by_css_selector('a').get_attribute('href'))
 # 종료
 driver.close()
 driver.quit()
