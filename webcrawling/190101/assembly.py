@@ -56,13 +56,26 @@ for page in range(1, 9):
         values.append(temp[7].text)
         contents.append(temp[6].find_element_by_css_selector('a').get_attribute('href'))
     # print(len(lawItems))
-print(contents[0])
-driver.execute_script(contents[0])
-for winHandle in driver.window_handles:
-    driver.switch_to.window(winHandle)
-    print(driver.current_url)
-    print(driver.page_source)
+
 length = len(lawItems)
+spage = driver.window_handles[0]
+for li in range(0, 2):  # range(length):
+    # 0부터 시작함을 확인
+    # print(li)
+    driver.execute_script(contents[li])
+    for winHandle in driver.window_handles:
+        if spage == winHandle:
+            continue
+        driver.switch_to.window(winHandle)
+        # print(driver.current_url)
+        driver.close()
+        driver.switch_to.window(spage)
+
+for li in range(0, 2):  # range(length):
+    driver.execute_script(lawItems[li])
+    print(driver.find_element_by_css_selector('.boxType01').find_element_by_css_selector('.on').text)
+    print(driver.find_element_by_css_selector('.tableCol01').find_element_by_css_selector('a').get_attribute('href'))
+# length = len(lawItems)
 # for li in range(length):
 #     print(lawItems[li])
 # driver.execute_script(lawItems[0])
