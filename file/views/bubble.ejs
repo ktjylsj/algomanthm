@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+	    <script type="text/javascript">
+            var diameter = 800, // max size
+                width = 800,
+                height = 600,
+                color = d3.scale.category20b(); // color category
+            
+            var bubble = d3.layout.pack()
+                           .sort(null)
+                           .size([width, height])
+                           .padding(3);
+            
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .attr("class", "bubble")
+                                
+            var active_link = "0";
+            
+            d3.csv("data/petition.csv", function(data){
+                data = data.map(function(d){
+                    d.value = +d["people"]/100;
+                    return d;
+                })
+                var nodes = bubble.nodes({children:data}).filter(function(d){return !d.children;});
+                
+                var bubbles = svg.append("g")
+                                 .attr("transform", "translate(0,0)")
+                                 .selectAll(".bubble")
+                                 .data(nodes)
+                                 .enter();
+                
+                bubbles.append("circle")
+                       .attr("r", function(d){return d.r;})
+                       .attr("cx", function(d){return d.x;})
+                       .attr("cy", function(d){return d.y;})
+                       .style("fill", function(d){return color(d.value);})
+                       .on("mouseover", function(){
+                           if(active_link === "0") {
+                               d3.select(this).style("cursor", "pointer")
+                           }
+                           else{
+                               if(active_link.split("class").pop() === this.id.split("id").pop()){
+                                   d3.select(this).style("cursor", "pointer");
+                               }
+                               else
+                                   d3.select(this).style("cursor", "auto");
+                           }
+                       })
+                       .on("click", function(d){
+                           if(active_link === "0"){
+                               d3.select(this)
+                                 .style("stroke", "black")
+                                 .style("stroke-width", 2)
+                               
+                               active_link = this.id.split("id").pop();
+                           }else{
+                               if(active_link === this.id.split("id").pop()){
+                                   d3.select(this)
+                                     .style("stroke", "none");
+                               }
+                               active_link = "0";
+                           }
+                       })
+                
+                bubbles.append("text")
+                       .attr("x", function(d){return d.x;})
+                       .attr("y", function(d){return d.y;})
+                       .attr("text-anchor", "middle")
+                       .text(function(d){
+                           return d["title"];
+                       })
+                       .style({
+                           "fill":"white",
+                           "font-family":"빙그레체",
+                           "font-size": "10px"
+                       })
+                       .each(wrap);
+                
+                function wrap(d) {
+                    var text = d3.select(this),
+                        width = d.r * 2,
+                        x = d.x,
+                        y = d.y,
+                        words = text.text().split(/\s+/).reverse(),
+                        word,
+                        line = [],
+                        lineNumber = 0,
+                        lineHeight = 1.1,
+                        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y);
+                    while (word = words.pop()) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                        if (tspan.node().getComputedTextLength() > width) {
+                            line.pop();
+                            tspan.text(line.join(" "));
+                            line = [word];
+                            tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + "em").text(word);
+                      }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
