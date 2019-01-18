@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div id = "graph" class = "conceptmap">
+    </div>
+    <div id = "graph-info">
+    </div>
+      <script>
+          d3.json("/data/flare_data.json", function(data){
+              console.log(data);
+              var height = 1000,
+                  width = document.body.clientWidth;
+              var a = width,
+                  c = height,
+                  h = c,
+                  U = 200,
+                  K = 22,
+                  S = 20,
+                  s = 8,
+                  R = -30, // Radius for node circle 110
+                  J = 30,
+                  o = 15,
+                  t = 10,
+                  w = 1000,
+                  F = "elastic",
+                  N = "#0da4d3";
+              var T, q, x, j, H, A, P;
+              var L = {},
+                  k = {};
+              var i, y;
+              var r = d3.layout.tree().size([360, h / 2 - R]).separation(function (Y, X) {
+                  return (Y.parent == X.parent ? 1 : 2) / Y.depth ;
+              });
+              var W = d3.svg.diagonal.radial().projection(function(X){
+                  return [X.y, X.x / 180 * Math.PI];
+              });
+              var v = d3.svg.line().x(function(X){
+                  return X[0];
+              }).y(function(X){
+                  return X[1]
+              }).interpolate("bundle").tension(0.5);
+              var Nh = (c / 2) + 100;
+              var svgHeight = c + 100;
+              var d = d3.select("#graph").append("svg")
+                        .attr("width", a)
+                        .attr("height", svgHeight)
+                        .append("g")
+                        .attr("transform", "translate("+a/2+","+Nh+")");
+              var I = d.append("rect").attr("class", "bg")
+                       .attr({
+                           x: a / -2,
+                           y: c / -2,
+                           width: a,
+                           height: c,
+                           fill: "transparent"
+                       }).on("click", 0);
+              var B = d.append("g").attr("class", "links"),
+                  f = d.append("g").attr("class", "ditems"),
+                  E = d.append("g").attr("class", "nodes");
+              
+              var Q = d3.select("#graph-info");
+              
+              T = d3.map(data);
+              q = d3.merge(T.values());
+              x = {};
+              A = d3.map();
+              
+              var outerId = [0];
+              
+              q.forEach(function(aa){
+                  aa.key = p(aa.name);
+                  aa.canonicalKey = aa.key;
+                  x[aa.key] = aa;
+                  
+                  if(aa.group){
+                      if(!A.has(aa.group)){
+                          A.set(aa.group, [])
+                      }
+                      A.get(aa.group).push(aa);
+                  }
+              });
+              
+              j = d3.map();
+              
+              T.get("ditems").forEach(function (aa){
+                  aa.links = aa.links.filter(function(ab){
+                      return typeof x[p(ab)] !== "undefined";
+                  });
+                  
+                  j.set(aa.key, aa.links.map(function(ab){
+                      var ac = p(ab);
+                      if(typeof j.get(ac) === "undefined"){
+                          j.set(ac, []);
+                      }
+                      j.get(ac).push(aa);
+                      return x[ac];
+                  }));
+              })
+              
+              var Z = window.location.hash.substring(1);
+              if(Z && x[Z]){
+                  G(x[Z]);
+              } else{
+                  O();
+                  M();
+              }
+              
+              window.onhashchange = function(){
+                  var aa = window.location.hash.substring(1);
+                  if(aa && x[aa]){
+                      G(x[aa], true)
+                  }
+              };
+              
+              function O(){
+                  if(L.node === null){
+                      return
+                  }
+                  L = {
+                      node: null,
+                      map: {}
+                  };
+                  i = Math.floor(c / T.get("ditems").length);
+                  y = Math.floor(T.get("ditems").length * i / 2);
+                  T.get("ditems").forEach(function(af, ae){
+                      af.x = U / -2;
+                      af.y = ae * i - y;
+                  });
+                  var ad = 0 + J,
+                      Z = 360 - J,
+                      ac = (Z - ad) / (T.get("themes").length - 1);
+                  T.get("themes").forEach(function(af, ae){
+                      af.x = Z - ae * ac;
+                      af.y = h / 2 - R;
+                      af.xOffset =- S;
+                      af.depth = 1;
+                  });
+                  
+                  H = [];
+                  var ab, Y, aa, X = h / 2 - R;
+                  T.get("ditems").forEach(function(ae){
+                      ae.links.forEach(function(af){
+                          ab = x[p(af)];
+                          if(!ab || ab.type === "reference"){
+                              return
+                          }
+                          Y = (ab.x - 90) * Math.PI / 180;
+                          aa = ae.key + "-to-" + ab.key;
+                          H.push({
+                              source: ae,
+                              target: ab,
+                              key: aa,
+                              canonicalKey: aa,
+                              x1: ae.x + (ab.type === "theme" ? 0 : U),
+                              y1: ae.y + K / 2,
+                              x2: Math.cos(Y) * X + ab.xOffset,
+                              y2: Math.sin(Y) * X;
+                          })
+                      })
+                  });
+              }
+              /*var canvas = d3.select("body").append("svg")
+                             .attr("width", width)
+                             .attr("height", height + padding);*/
+          })
+      </script>
+    </body>
+</html>
