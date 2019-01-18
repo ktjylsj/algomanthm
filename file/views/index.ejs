@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <h1>세로 막대형 그래프</h1>
+    <p>Welcome to <%= title %></p>
+      <svg id = "myGraph" height="1000" width="1000">
+      </svg>
+      <script>
+        var svgHeight = 235
+        var barElements;
+        var dataSet = [120, 70, 175, 80, 220, 280, 40];
+          
+        var offsetX = 40;
+        var offsetY = 10;
+          
+        var y_range_limit = 300;
+        var interval = 5;
+          
+        var y = d3.scaleLinear()
+                  .range([y_range_limit, 0])
+                  .domain([0, 300])
+        
+        var yScale = d3.axisLeft(y)
+                       .tickValues(d3.range(0, 301, 50))
+                       .tickFormat(function(d){return " $" + d})
+        
+        d3.select("#myGraph").append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate("+offsetX+", "+((svgHeight)-y_range_limit)+")")
+          .call(yScale)
+        
+        barElements = d3.select("#myGraph")
+                        .selectAll("rect")
+                        .data(dataSet)
+          
+        barElements.enter()
+                    .append("rect")
+                    .style("fill", "orange")
+                    .attr("height", function(d){
+                    // d를 확인하기 위한 로그
+                    // console.log(d);
+                    return d;
+                    })
+                    .attr("width", "30")
+                    .attr("x", function(d, i){
+                    // console.log(i)
+                    return i * 50 + interval * 1 + offsetX;
+                    })
+                    .attr("y", function(d){
+                    // console.log(svgHeight-d);
+                    return svgHeight - d - offsetY;
+                    })
+
+        textElements = d3.select("#myGraph")
+                         .selectAll("#barNum")
+                         .data(dataSet)
+        
+        textElements.enter()
+                    .append("text")
+                    .attr("class", "barNum")
+                    .attr("x", function(d, i){
+                    return i * 50 + interval * 2 + offsetX;
+                    })
+                    .attr("y", svgHeight - 5 - offsetY)
+                    .text(function(d, i){
+                    return d;
+                    })
+          
+        d3.select("#myGraph").append("rect")
+          .attr("class", "axis_x")
+          .attr("width", 360)
+          .attr("height", 1)
+          .attr("transform","translate("+offsetX+", "+((svgHeight)-offsetY)+")")
+          
+        xElements = d3.select("#myGraph")
+                      .selectAll("#barName")
+                      .data(dataSet)
+          
+        xElements.enter()
+                 .append("text")
+                 .attr("class", "barName")
+                 .attr("x", function(d, i){
+                 return i * 50 
+        })
+      </script>
+  </body>
+</html>
