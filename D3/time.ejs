@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <script src="//unpkg.com/timelines-chart"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+	   <div id="myPlot"></div>
+
+	   <script>
+            var data = <%- test %>
+            TimelinesChart()
+			         .data(getRandomData(true))
+                     .zQualitative(true)
+			         (document.getElementById('myPlot'));
+                
+            function getRandomData(ordinal = false) {
+                const NGROUPS = 1,
+                      MAXLINES = data.length,
+                      MAXSEGMENTS = 10,
+                      MAXCATEGORIES = 10,
+                      MINTIME = new Date(2016, 7, 7);
+
+            const nCategories = MAXCATEGORIES,
+                  categoryLabels = [ '', '접수', '위원회 심사', '체계지구 심사', '본회의 심의', '정부 이송', '공포', '대안반영폐기', '폐기', '철회', '의결' ];
+
+            return [...Array(NGROUPS).keys()].map(i => ({
+                   group: data[i].title,
+                   data: getGroupData()
+            }));
+
+            function getGroupData() {
+                return [...Array(MAXLINES).keys()].map(i => ({
+                       label: data[i].name,
+                       data: getSegmentsData(i)
+            }));
+
+            function getSegmentsData(index) {
+                const nSegments = data.length;
+                let runLength = MINTIME;
+
+                return [...Array(nSegments).keys()].map(i => {
+                       var st = data[index].start.substring(0, 4)+" ,"+data[index].start.substring(5,7)+" ,"+data[index].start.substring(8,10);
+                       //console.log(st)
+                       var et = data[index].end.substring(0, 4)+" ,"+data[index].end.substring(5,7)+" ,"+data[index].end.substring(8,10);
+                       //console.log(et)
+                       const start = new Date(st),
+                             end = new Date(et);
+                       return {
+                              timeRange: [start, end],
+                              val: categoryLabels[data[index].value]
+                              //labelVal: is optional - only displayed in the labels
+                      };
+                });
+            }}}
+            
+	   </script>
+    </body>
+</html>
