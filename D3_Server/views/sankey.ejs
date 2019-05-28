@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sankey Particles</title>
+    <style>
+        .node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .15;
+}
+
+/*
+.link:hover {
+  stroke-opacity: .25;
+}
+*/
+
+#myBtn{
+    opacity:0.5;
+}
+        
+#myBtn:hover{
+    opacity:1;
+}
+        
+svg {
+  position: absolute;
+}
+
+canvas {
+  position: absolute;
+}
+#myModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+    
+    
+/* Modal Content/Box */
+.modal-content {
+  background-color: #d9edf7;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+  
+      
+        
+p{
+    font-size:20px;
+}
+</style>
+</head>
+
+<body style=padding:50px>
+    
+    <!-- Trigger/Open The Modal -->
+    
+    <select id="dropdown" onchange="pageLoad(this.value)"></select>
+    <canvas width="1000" height="800"></canvas>
+    <svg width="1000" height="800"></svg>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js" charset="utf-8" type="text/javascript"></script>
+    <script src="/javascripts/d3.sankey.js" charset="utf-8" type="text/javascript"></script>
+    <script src="/javascripts/sankey.js"></script>
+    <script type="text/javascript">
+        // 접수, 위원회 심사, 체계자구 심사, 본회의 심의, 정부 이송, 공포, 대안반영폐기, 폐기, 철회, 의결
+
+        // 접수 : 접수!!  > 위원회 심사  > 체계자구 심사  > 본회의 심의  > 정부 이송  > 공포
+        // 위원회 심사 : 접수  > 위원회 심사!!  > 체계자구 심사  > 본회의 심의  > 정부 이송  > 공포
+        // 체계자구심사 : 접수  > 위원회 심사  > 체계자구 심사!!  > 본회의 심의  > 정부 이송  > 공포
+        // 본회의심의 : 접수  > 위원회 심사  > 체계자구 심사  > 본회의 심의!!  > 정부 이송  > 공포
+        // 정부 이송 : 접수  > 위원회 심사  > 체계자구 심사  > 본회의 심의  > 정부 이송!!  > 공포
+        // 공포 : 접수  > 본회의 심의  > 정부 이송  > 공포
+        // 대안반영폐기 : 접수  > 위원회 심사  > 본회의 심의  > 대안반영폐기
+        // 폐기 : 접수  > 위원회 심사  > 폐기
+        // 철회 : 접수 > 위원회 심사 > 철회
+        // 의결 : 접수  > 본회의 심의  > 의결
+        
+        var original = <%- energy %>;
+        var energy1 = <%- energy %>;
+        var pet1 = <%- petkeyword %>;
+    </script>
+</body>
+
+</html>

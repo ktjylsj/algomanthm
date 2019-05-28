@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+</head>
+    
+    <html lang="en"><head>
+<meta charset="UTF-8">
+        <title>청원게시판 시각화 홈페이지</title>
+
+<style>
+      /*
+   Side Navigation Menu
+   ===================
+   License:
+   https://goo.gl/KC3XXj
+   ===================
+   Author: @PableraShow
+
+ */
+
+
+/* Typography
+------------------------------------- */
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans:700');
+
+body {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  line-height: 1.8em;
+  color:#4D4D4D;
+}
+
+/* Navigation */
+
+a {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #151515;
+
+  transition-delay: 0s;
+  transition-duration: 0.36s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+nav a:hover { font-family: 'Open Sans', sans-serif;
+              font-weight: 400;
+            }
+
+nav,
+nav:hover { padding: 1em; }
+
+nav a { text-indent: -200px; }
+
+nav:hover a {
+  text-indent:0px;
+  color: #EEFFE5;
+}
+
+svg,
+a { vertical-align: top; }
+
+/* End Navigation */
+
+
+/* Sections */
+
+h1 {
+  font-family: 'Noto Serifx KR', serif;
+  font-size:3em;
+  font-weight: 300;
+  color:#000;
+  line-height:1.8em;
+}
+
+h2 { font-weight: 300; }
+
+h2 a { font-weight: 700; }
+
+/* End Sections */
+
+
+/* Structure
+------------------------------------- */
+body { background: #f1f1f1; }
+
+/* Navigation */
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  height: auto;
+  min-width: 50px;
+  width: 100px;
+  margin-top: 5em;
+  margin-right: 1em;
+  background-color: #ccc;
+
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+nav:hover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 180px;
+  background-color: #9ED29E;
+}
+
+nav a {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity:0;
+  margin-left: 1em;
+}
+
+nav:hover a {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity:1;
+}
+
+li {
+  display: block;
+  padding: 0em;
+  height: 45px;
+}
+
+svg,
+a {
+  display: inline-block;
+}
+
+/* End Navigation */
+
+/* Sections */
+
+section { padding: 2em 0 0 14em; }
+
+/* End sections */
+    </style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<nav>
+<ul>
+<li><img src="./images/home.svg" alt="Home"><a href="/" style="font-family:Open Sans">Home</a></li>
+<li><img src="./images/info.svg" alt="Help"><a href="/help">Help</a></li>
+<li><img src="./images/court.svg" alt="About"><a href="/last?id=pet">Petition</a></li>
+<li><img src="./images/auction.svg" alt="Work"><a onclick="sankeymove()" style="cursor:pointer">Bill</a></li>
+<li><img src="./images/bot.svg" alt="Contact"><a onclick="chatbot()" style="cursor:pointer">Chatbot</a></li>
+</ul></nav>
+<section>
+<!--<h1>Side navigation menu</h1>
+<h2>Created with <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path d="M256,462L53.676,284.644V130.646L169.034,50L256,104.977L342.965,50l115.359,80.646v153.998L256,462z M93.801,266.457L256,408.64l162.198-142.183V151.553l-76.35-53.375L256,152.447l-85.849-54.27l-76.351,53.375V266.457z"></path></svg>
+by <a href="http://pablogarciafernandez.com" target="_blank">Pablo García Fernández</a></h2>-->
+        <h1>1.메인화면</h1>
+  <img src="../images/main.png" height="400" alt="main" title="main"><br>
+좌측의 네비게이션 바를 통해 원하는 페이지로 이동합니다.<br>
+<img src="../images/1.png" height="25">Home : 초기화면으로 이동합니다.<br>
+<img src="../images/2.png" height="25">Help : 본 웹페이지의 사용법이 담긴 페이지로 이동합니다.<br>
+<img src="../images/3.png" height="25">Petition : 많은 동의 수를 받은 청원 상위 15개가 담긴 버블 차트 페이지로 이동합니다.<br> 
+<img src="../images/4.png" height="25">Bill : 의안들을 시각화 해주는 샌키 다이어그램이 담긴 페이지로 이동합니다.<br>
+<img src="../images/5.png" height="25">Chatbot : 특정 기능에 대한 도움말 서비스를 제공, 사용자가 입력한 문장과 관련된 청원 혹은 법률을 추천합니다.(추후 추가될 예정)<br>
+<br><br><br>
+<h1>2.Bubble</h1>
+<img src="../images/bubble.png" height="400" alt="bubble" title="bubble"><br>
+많은 동의 수를 받은 청원 상위 15개와 각 청원과 관련된 세가지 키워드를 제공합니다.<br>
+<img src="../images/1.png" height="25"> 키워드 : 해당 청원과 관련된 세가지의 키워드를 보여줍니다. 한 가지 키워드를 선택 시 아래와 같은 컨셉트 맵 화면으로 이동합니다.<br>
+<img src="../images/concept.png" height="400" alt="concept" title="concept"><br>
+<img src="../images/1.png" height="25">기사 : 해당 키워드와 관련된 기사를 최대 5가지 제공합니다.(클릭 시 해당 링크로 이동)<br>
+<img src="../images/2.png" height="25">판례 : 해당 키워드와 관련된 판례를 최대 5가지 제공합니다.(클릭 시 해당 링크로 이동)<br> 
+<img src="../images/3.png" height="25">유사법 : 해당 키워드와 관련된 법안을 최대 5가지 제공합니다.(클릭 시 해당 링크로 이동)<br>
+<img src="../images/4.png" height="25">타임라인 차트 : 가운데 원을 클릭 시 해당 키워드와 관련된 의안들의 심의 단계를 시각화한 timeline chart로 이동합니다.<br>
+<img src="../images/timeline.png" height="400" alt="timeline" title="timeline"><br>
+특정 키워드와 관련된 의안들의 심의 단계를 시각화합니다.<br>
+<img src="../images/1.png" height="25">상단바 : 원하는 단계를 클릭 시 해당하는 의안들만 모아 보여줍니다.<br>
+<img src="../images/2.png" height="25">줌인,아웃 : 원하는 부분을 마우스를 통해 줌인, 줌아웃 합니다.<br>
+<br><br><br>
+<h1>3.Sankey</h1>
+<img src="../images/sankey.png" height="400" alt="sankey" title="sankey"><br>
+20대 국회의 의안들을 시각화 합니다. 의안이 많은 법률일수록 흐름의 폭이 넓어지며 흐르는 원의 개수가 증가합니다.<br>
+<img src="../images/1.png" height="25"> 초기화면 : 가장 높은 동의 수를 얻은 청원의 세 가지 키워드와 관련된 의안들의 흐름을 보여줍니다.<br>
+<img src="../images/2.png" height="25">키워드 선택 : 많은 동의 수를 받은 청원 상위 15개와 관련된 키워드를 중 하나를 선택하여 관련된 의안의 흐름을 확인합니다.<br>
+<br><br><br>
+</section>
+ <script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+
+
+<canvas id="__gesture_canvas__" width="0" height="0" style="z-index: 100000000; position: fixed; background: transparent !important; top: 0px; left: 0px;"></canvas><span id="__gesture_preview__" style="z-index: 100000001; position: absolute; background: rgba(255, 255, 225, 0.85); margin: 0px; border: 1px solid black; white-space: nowrap; display: none;"></span></body></html>
+
+</html>

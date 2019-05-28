@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<head>
+  <meta charset="utf-8">
+  <link href="./stylesheets/css.css" rel="stylesheet">
+    <title>청원게시판 시각화 홈페이지</title>
+    <script src="../javascripts/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../javascripts/common.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script>
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        d3.select('html').style('width',w).style('height','578px');
+        d3,select('.main_visual).style('height','578px');
+    </script>
+</head>
+<html>
+    <div class="main_visual" style="height:578px">
+      <div class="box main_chai on_img animated fadeIn slow">
+          <a href="/last?id=pet">
+        <div class="cover"></div>
+          <div class="txtwrap">
+            <img class="animated fadeInUp slow" src="./images/sankey_off.png" alt="" style="margin-top:550px">
+          </div>
+			 <div class="animated fadeIn slow txtwrap_mo">		
+            <p></p>			 
+			 </div>
+        </a>
+      </div>
+      <div class="box main_butcher on_img animated fadeIn slow">
+        <a href="https://www1.president.go.kr/petitions">          
+        <div class="cover"></div>
+          <div class="txtwrap">
+            <img class="animated fadeInUp slow" src="./images/bubble_off.png" alt="" style="margin-top:550px">
+          </div>
+			 <div class="animated fadeIn slow txtwrap_mo">			 
+            <p></p>
+			 </div>
+        </a>
+      </div>
+    </div>
+</html>

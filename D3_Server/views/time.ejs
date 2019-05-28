@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <!--<script src="//unpkg.com/timelines-chart"></script>-->
+        <script src="/javascripts/timelines.js"></script>
+    </head>
+
+    <body>
+        
+        <div id="myPlot"></div>
+        <script>
+            const myChart = TimelinesChart();
+            function teep(data2,d,original2){
+                d3.select('#myPlot').remove();
+                d3.select('body').append('div').attr('id','myPlot');
+                d3.select('#myPlot').style('width',800).style('height',350).style('align','center');
+                
+                tChart(JSON.stringify(data2),original2);
+                return;
+            }
+            
+            function tChart(results,origin){
+            var array = results.split("},");
+            var data = eval(results);
+            var ht = results * 3;
+            //var data =
+            var original2 = JSON.parse(JSON.stringify(data));
+            var temp = {"title":"start","name":"","start":"2019-01-31T15:00:00.000Z","end":"2019-02-04T15:00:00.000Z","value":1};
+            var temp2 = "start";
+            const myChart = TimelinesChart();
+            myChart
+                .data(getLawData(true, temp2))
+                .zQualitative(true)
+                .width(800)
+                .maxHeight(ht)
+                .onLabelClick(function(d){
+                console.log(origin)
+                    if(origin==null || origin==undefined)
+                        data = eval(results);
+                    else
+                        data = origin;
+                    myChart.data(getLawData(false, temp2));
+                    return;
+                })
+                .onSegmentClick(function(d){
+                    console.log(d);
+                    return;
+                })
+			    (document.getElementById('myPlot'));
+            var dataset = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            var legend = d3.select(".legend")
+                           .selectAll("rect")
+                           .data(dataset)
+                           .enter()
+                           .append("rect")
+            
+            function getLawData(ordinal = true, temp) {
+                if(temp == "start"){
+                    const NGROUPS = 1,
+                          MAXLINES = data.length,
+                          MAXSEGMENTS = 10,
+                          MAXCATEGORIES = 10,
+                          MINTIME = new Date(2016, 7, 7);
+
+                    const nCategories = MAXCATEGORIES,
+                          categoryLabels = [ '', '접수', '위원회 심사', '체계지구 심사', '본회의 심의', '정부 이송', '공포', '대안반영폐기', '폐기', '철회', '의결' ];
+
+                    return [...Array(NGROUPS).keys()].map(i => ({
+                           group: data[i].title,
+                           data: getGroupData()
+                    }));
+
+                    function getGroupData() {
+                        return [...Array(MAXLINES).keys()].map(i => ({
+                               label: data[i].name,
+                               data: getSegmentsData(i)
+                    }));
+
+                        function getSegmentsData(index) {
+                            const nSegments = data.length;
+                            let runLength = MINTIME;
+
+                            return [...Array(nSegments).keys()].map(i => {
+                                   var st = data[index].start.substring(0, 4)+" ,"+data[index].start.substring(5,7)+" ,"+data[index].start.substring(8,10);
+                                   //console.log(st)
+                                   var et = data[index].end.substring(0, 4)+" ,"+data[index].end.substring(5,7)+" ,"+data[index].end.substring(8,10);
+                                   //console.log(et)
+                                   const start = new Date(st),
+                                         end = new Date(et);
+                                   return {
+                                          timeRange: [start, end],
+                                          val: categoryLabels[data[index].value]
+                                          //labelVal: is optional - only displayed in the labels
+                                  };
+                            });
+                        }
+                    }
+                }
+                const NGROUPS = 1,
+                      MAXLINES = data.length,
+                      MAXSEGMENTS = 10,
+                      MAXCATEGORIES = 10,
+                      MINTIME = new Date(2016, 6, 7);
+
+                const nCategories = MAXCATEGORIES,
+                      categoryLabels = [ '', '접수', '위원회 심사', '체계지구 심사', '본회의 심의', '정부 이송', '공포', '대안반영폐기', '폐기', '철회', '의결' ];
+                return [...Array(NGROUPS).keys()].map(i => ({
+                       group: data[i].title,
+                       data: getGroupData()
+                }));
+
+                function getGroupData() {
+                    return [...Array(MAXLINES).keys()].map(i => ({
+                           label: data[i].name,
+                           data: getSegmentsData(i)
+                }));
+
+                    function getSegmentsData(index) {
+                        const nSegments = data.length;
+                        let runLength = MINTIME;
+                        //console.log(data[index])
+                        //console.log(temp.val)
+                        //console.log(categoryLabels[data[index].value])
+//                        if(temp.val == categoryLabels[data[index].value]){
+//                            console.log(categoryLabels[data[index].value])
+                            return [...Array(nSegments).keys()].map(i => {
+                                   var st = data[index].start.substring(0, 4)+" ,"+data[index].start.substring(5,7)+" ,"+data[index].start.substring(8,10);
+                                   //console.log(st)
+                                   var et = data[index].end.substring(0, 4)+" ,"+data[index].end.substring(5,7)+" ,"+data[index].end.substring(8,10);
+                                   //console.log(et)
+                                   const start = new Date(st),
+                                         end = new Date(et);
+                                   return {
+                                          timeRange: [start, end],
+                                          val: categoryLabels[data[index].value]
+                                          //labelVal: is optional - only displayed in the labels
+                                  };
+                            });
+//                        }
+                        return [...Array(nSegments).keys()].map(i => {
+                               var st = data[index].start.substring(0, 4)+" ,"+data[index].start.substring(5,7)+" ,"+data[index].start.substring(8,10);
+                               //console.log(st)
+                               var et = data[index].end.substring(0, 4)+" ,"+data[index].end.substring(5,7)+" ,"+data[index].end.substring(8,10);
+                               //console.log(et)
+                               const start = new Date(st),
+                                     end = new Date(et);
+                               return {
+                                      timeRange: [MINTIME, MINTIME],
+                                      val: categoryLabels[data[index].value]
+                                      //labelVal: is optional - only displayed in the labels
+                              };
+                        });
+                    }
+                }
+            }
+            }
+	   </script>
+    </body>
+</html>

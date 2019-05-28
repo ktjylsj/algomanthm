@@ -1,0 +1,93 @@
+{"name":"bubble", "children": [
+{"name":"Atlas",
+"children":[
+    {"name": "성폭력"},
+    {"name": "행정"},
+    {"name": "가정"}
+]},
+{"name": "AgLab",
+"children":[
+    {"name":"목격자보호"},
+    {"name":"행정"},
+    {"name":"증인"}
+]},
+{"name":"Nutshell",
+"children":[
+    {"name":"Efficiency","address":"http://d3js.org"},
+    {"name":"Excess Nutrient","address":"http://d3js.org"},
+    {"name":"Economy","address":"http://d3js.org"}
+]},
+{"name":"Data",
+"children":[
+    {"name":"Geography","address":"http://www.earthstat.org/"},
+    {"name":"Crop Land","address":"http://www.earthstat.org/"},
+    {"name":"Crop Yields","address":"http://www.earthstat.org/"}
+]},
+{"name":"Test",
+"children":[
+    {"name":"키워드1","address":"http://www.earthstat.org/"},
+    {"name":"키워드2","address":"http://www.earthstat.org/"},
+    {"name":"키워드3","address":"http://www.earthstat.org/"}
+]},
+{"name":"Atlas",
+"children":[
+    {"name": "Geography","address":"http://gli.environment.umn.edu", "note":"Global crop geography, including precipitation, temperature, crop area, etc."},
+    {"name": "Crop Land","address":"http://d3js.org"},
+    {"name": "Crop Yields","address":"http://environment.umn.edu", "note":"Maize, wheat, rice, and soybean yields in 2000"}
+]},
+{"name": "AgLab",
+"children":[
+    {"name":"Excess Nutrient","address":"http://d3js.org","note":"Prototype Infographics on Excess Fertilizer Nutrients"},
+    {"name":"Yield Gap","address":"http://d3js.org", "note":"The gap between attainable yields and actual yields, with modeled yields assuming the percentage of gap closed."},
+    {"name":"Fertilizer","address":"http://sunsp.net"}
+]},
+{"name":"Nutshell",
+"children":[
+    {"name":"Efficiency","address":"http://d3js.org"},
+    {"name":"Excess Nutrient","address":"http://d3js.org"},
+    {"name":"Economy","address":"http://d3js.org"}
+]},
+{"name":"Data",
+"children":[
+    {"name":"Geography","address":"http://www.earthstat.org/"},
+    {"name":"Crop Land","address":"http://www.earthstat.org/"},
+    {"name":"Crop Yields","address":"http://www.earthstat.org/"}
+]},
+{"name":"Test",
+"children":[
+    {"name":"키워드1","address":"http://www.earthstat.org/"},
+    {"name":"키워드2","address":"http://www.earthstat.org/"},
+    {"name":"키워드3","address":"http://www.earthstat.org/"}
+]},
+{"name":"Atlas",
+"children":[
+    {"name": "Geography","address":"http://gli.environment.umn.edu", "note":"Global crop geography, including precipitation, temperature, crop area, etc."},
+    {"name": "Crop Land","address":"http://d3js.org"},
+    {"name": "Crop Yields","address":"http://environment.umn.edu", "note":"Maize, wheat, rice, and soybean yields in 2000"}
+]},
+{"name": "AgLab",
+"children":[
+    {"name":"Excess Nutrient","address":"http://d3js.org","note":"Prototype Infographics on Excess Fertilizer Nutrients"},
+    {"name":"Yield Gap","address":"http://d3js.org", "note":"The gap between attainable yields and actual yields, with modeled yields assuming the percentage of gap closed."},
+    {"name":"Fertilizer","address":"http://sunsp.net"}
+]},
+{"name":"Nutshell",
+"children":[
+    {"name":"Efficiency","address":"http://d3js.org"},
+    {"name":"Excess Nutrient","address":"http://d3js.org"},
+    {"name":"Economy","address":"http://d3js.org"}
+]},
+{"name":"Data",
+"children":[
+    {"name":"Geography","address":"http://www.earthstat.org/"},
+    {"name":"Crop Land","address":"http://www.earthstat.org/"},
+    {"name":"Crop Yields","address":"http://www.earthstat.org/"}
+]},
+{"name":"Test",
+"children":[
+    {"name":"성폭행","address":"http://www.earthstat.org/"},
+    {"name":"행정","address":"http://www.earthstat.org/"},
+    {"name":"직무유기","address":"http://www.earthstat.org/"}
+]}
+    
+]}

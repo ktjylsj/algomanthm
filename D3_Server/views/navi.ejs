@@ -1,0 +1,201 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>청원게시판 시각화 홈페이지</title>
+<style>
+      /*
+   Side Navigation Menu
+   ===================
+   License:
+   https://goo.gl/KC3XXj
+   ===================
+   Author: @PableraShow
+
+ */
+
+
+/* Typography
+------------------------------------- */
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:800');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.8em;
+  color:#4D4D4D;
+}
+
+/* Navigation */
+
+a {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #151515;
+
+  transition-delay: 0s;
+  transition-duration: 0.36s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+nav a:hover { font-family: 'Open Sans', sans-serif;
+              font-weight: 400;
+            }
+
+nav,
+nav:hover { padding: 1em; }
+
+nav a { text-indent: -200px; }
+
+nav:hover a {
+  text-indent:0px;
+  color: #EEFFE5;
+}
+
+svg,
+a { vertical-align: top; }
+
+/* End Navigation */
+
+
+/* Sections */
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size:3em;
+  font-weight: 300;
+  color:#000;
+  line-height:1.8em;
+}
+
+h2 { font-weight: 300; }
+
+h2 a { font-weight: 700; }
+
+/* End Sections */
+
+
+/* Structure
+------------------------------------- */
+body { background: #f1f1f1; }
+
+/* Navigation */
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  height: auto;
+  min-width: 50px;
+  width: 100px;
+  margin-top: 5em;
+  margin-right: 1em;
+  background-color: #ccc;
+
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+nav:hover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 180px;
+  background-color: #9ED29E;
+}
+
+nav a {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity:0;
+  margin-left: 1em;
+}
+
+nav:hover a {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity:1;
+}
+
+li {
+  display: block;
+  padding: 0em;
+  height: 45px;
+}
+
+svg,
+a {
+  display: inline-block;
+}
+
+/* End Navigation */
+
+/* Sections */
+
+section { padding: 2em 0 0 14em; }
+
+/* End sections */
+    </style>
+<script src="javascripts/d3.v3.min.js"></script>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+    
+    function sankeymove(){
+        var a = d3.selectAll(".label");
+        if(a[0].length==0)
+            {
+                alert("키워드를 선택한 뒤 시도해주세요.");   
+                return;
+            }
+        var b = d3.select(a[0][0]).text();
+        if(b==undefined)
+            {
+                alert("해당 키워드가 포함된 의안이 존재하지 않습니다.");   
+                return;
+            }
+        else{
+            var c = b.substr(0,b.length-1)
+            d3.select('#init_sankey').style("display","block");
+            d3.select("#main").remove();
+            d3.select('#dropdown').property('value',c).call(pageLoad(c));
+        }
+    }
+    
+    function chatbot(){
+        alert("준비 중입니다.");
+        return;
+    }
+</script>
+</head>
+<body translate="no">
+<nav>
+<ul>
+<li><img src="./images/home.svg" alt="Home"><a href="/">Home</a></li>
+<li><img src="./images/info.svg" alt="Help"><a href="/help">Help</a></li>
+<li><img src="./images/court.svg" alt="About"><a href="/last?id=pet">Petition</a></li>
+<li><img src="./images/auction.svg" alt="Work"><a onclick="sankeymove()" style="cursor:pointer">Bill</a></li>
+<li><img src="./images/bot.svg" alt="Contact"><a onclick="chatbot()" style="cursor:pointer">Chatbot</a></li>
+</ul></nav>
+<section>
+<!--<h1>Side navigation menu</h1>
+<h2>Created with <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path d="M256,462L53.676,284.644V130.646L169.034,50L256,104.977L342.965,50l115.359,80.646v153.998L256,462z M93.801,266.457L256,408.64l162.198-142.183V151.553l-76.35-53.375L256,152.447l-85.849-54.27l-76.351,53.375V266.457z"></path></svg>
+by <a href="http://pablogarciafernandez.com" target="_blank">Pablo García Fernández</a></h2>-->
+        <% include ./test.ejs %>
+</section>
+ <script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+
+
+<canvas id="__gesture_canvas__" width="0" height="0" style="z-index: 100000000; position: fixed; background: transparent !important; top: 0px; left: 0px;"></canvas><span id="__gesture_preview__" style="z-index: 100000001; position: absolute; background: rgba(255, 255, 225, 0.85); margin: 0px; border: 1px solid black; white-space: nowrap; display: none;"></span></body></html>

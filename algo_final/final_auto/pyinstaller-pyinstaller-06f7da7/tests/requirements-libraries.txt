@@ -1,0 +1,90 @@
+# This is the pip requirements file for extensive
+# PyInstaller testing.
+#
+# Example (assuming current dir is PyInstaller's top-level source dir)::
+#
+#   python -m pip install -r tests/requirements-libraries.txt  # extensive
+
+# include requirements for base testing
+-r requirements-tools.txt
+
+
+# Needs work
+# ----------
+# These packages, if updated, produce test failures. Work needs to be done on
+# these hooks.
+#
+# - Django, 2.2 and above.
+
+
+# Working
+# -------
+# These packages work with no (known) issues.
+babel==2.6.0
+boto==2.49.0
+boto3==1.9.125
+botocore==1.12.125
+pygments==2.3.1
+markdown==3.1
+# simplejson is used for text_c_extension
+simplejson==3.16.0
+pyzmq==18.0.1
+# Required for test_namespace_package
+zope.interface==4.6.0
+numpy==1.16.2
+scipy==1.2.1
+openpyxl==2.6.2
+pycparser==2.19
+pytz==2018.9
+sqlalchemy==1.3.1
+zeep==3.3.1
+pyexcelerate==0.7.3
+Pillow==5.4.1
+pinyin==0.4.0
+pycryptodome==3.8.0
+pycryptodomex==3.8.0
+future==0.17.1
+pyusb==1.0.2
+Unidecode==1.0.23
+h5py==2.9.0
+python-dateutil==2.8.0
+phonenumbers==8.10.8
+requests==2.21.0
+pendulum==2.0.4
+
+
+# Special cases
+# -------------
+# Url for downloading PyCrypto prebuilt Windows binaries:
+# http://www.voidspace.org.uk/python/pycrypto-2.6.1/
+# Required for crypto feature - encrypting bytecode.
+pycrypto==2.6.1; python_version <= '3.5' or sys_platform != 'win32'
+
+# Wheels are available only on OS X and Win 32. The only Windows 64-bit Python
+# tests run are for Python 3.7, so exclude that. There's no way to simply
+# exclude Windows 64 bit Python.
+pyenchant==2.0.0; sys_platform == 'darwin' or (sys_platform == 'win32' and python_version <= '3.6')
+
+# No wheel for Python 3.5 or higher.
+PySide==1.2.4; sys_platform == 'win32' and python_version == '2.7'
+
+# As of 14-Aug-2018, twisted doesn't offer Python 3 wheels.
+twisted==18.9.0; python_version == '2.7'
+
+# uvloop does not currently support Windows.
+uvloop==0.12.2; python_version != '2.7' and sys_platform != 'win32'
+
+
+# Python 3 only
+# -------------
+Django==2.1.8; python_version != '2.7'
+gevent==1.4.0; python_version != '2.7'
+ipython==7.4.0; python_version != '2.7'
+keyring==19.0.1; python_version != '2.7'
+matplotlib==3.0.3; python_version != '2.7'
+pandas==0.24.2; python_version != '2.7'
+pylint==2.3.1; python_version != '2.7'
+pyqt5==5.12.1; python_version != '2.7'
+pyqtwebengine==5.12.1; python_version != '2.7'
+sphinx==2.0.0; python_version != '2.7'
+web3==4.9.1; python_version != '2.7'
